@@ -1,0 +1,178 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Creating a background task with Rocketjob</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../assets/fonts/font.css?v=7e68f6192d">
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css?v=7e68f6192d">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=7e68f6192d">
+    <link rel="canonical" href="http://localhost:2368/adding-rocketjob-to-a-rails-app/">
+    <meta name="referrer" content="origin">
+    
+    <meta property="og:site_name" content="juan's ruby blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Creating a background task with Rocketjob">
+    <meta property="og:description" content="I've put together a little post to show you how to create a background task using Rocketjob. pre-requirements: Rocketjob gem installed. If you don't have Rocketjob yet, please go to http://http://rocketjob.io/configuration.html - and follow the...">
+    <meta property="og:url" content="http://localhost:2368/adding-rocketjob-to-a-rails-app/">
+    <meta property="article:published_time" content="2015-09-15T02:41:07.872Z">
+    <meta property="article:modified_time" content="2015-09-15T02:41:07.871Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Creating a background task with Rocketjob">
+    <meta name="twitter:description" content="I've put together a little post to show you how to create a background task using Rocketjob. pre-requirements: Rocketjob gem installed. If you don't have Rocketjob yet, please go to http://http://rocketjob.io/configuration.html - and follow the...">
+    <meta name="twitter:url" content="http://localhost:2368/adding-rocketjob-to-a-rails-app/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "juan's ruby blog",
+    "author": {
+        "@type": "Person",
+        "name": "juan gaviria",
+        "url": "http://localhost:2368/author/juan",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Creating a background task with Rocketjob",
+    "url": "http://localhost:2368/adding-rocketjob-to-a-rails-app/",
+    "datePublished": "2015-09-15T02:41:07.872Z",
+    "dateModified": "2015-09-15T02:41:07.871Z",
+    "description": "I&#x27;ve put together a little post to show you how to create a background task using Rocketjob. pre-requirements: Rocketjob gem installed. If you don&#x27;t have Rocketjob yet, please go to http://http://rocketjob.io/configuration.html - and follow the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7">
+    <link rel="alternate" type="application/rss+xml" title="juan's ruby blog" href="http://localhost:2368/rss/">
+</head>
+<body class="post-template">
+	<div id="site-nav">
+	<div class="wrapper Container-Large">
+		<header>
+				<a href="http://localhost:2368"><img class="site-logo" src="../content/images/2015/09/IMG_1677.JPG"></a>
+		</header>
+		<ul>
+				<a href="http://localhost:2368/"><li class="margin ">Home</li></a>
+		</ul>
+	</div>
+	<div style="float:none;"></div>
+</div>
+
+	<div class="Container-Large">
+		
+	<article id="post" class="Container-Small">
+		<header class="Container-">
+			<h1>Creating a background task with Rocketjob</h1>
+			<hr>
+		</header>
+		<section class="body">
+			<p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
+
+<h4 id="prerequirements">pre-requirements:</h4>
+
+<ul>
+<li>Rocketjob gem installed. If you don't have Rocketjob yet, please go to <a href="http://http://rocketjob.io/configuration.html">http://http://rocketjob.io/configuration.html</a> - and follow the instructions.</li>
+<li>Rocketjob Mission Control (RJMC) gem. This is the UI for RocketJob. (optional)</li>
+</ul>
+
+<p>We will be creating a simple task to add users in batch from a csv file. In future blogs we'll create more complex tasks to fully illustrate the power of Rocketjob.</p>
+
+<pre><code>rails new myapp
+cd myapp
+</code></pre>
+
+<p>Add the following to the bottom of your gemfile:</p>
+
+<pre><code>gem 'rocketjob'
+gem 'bson_ext', platform: :ruby
+gem 'rails_semantic_logger'
+</code></pre>
+
+<p>Generate Mongo Configuration file:</p>
+
+<pre><code> bundle exec rails generate mongo_mapper:config
+</code></pre>
+
+<p>should generate <code>config/mongo.yml</code></p>
+
+<p>If you are running <code>Spring</code>, which is installed by default by Rails, stop the backgound spring processes to get them to reload:</p>
+
+<pre><code>bin/spring stop
+</code></pre>
+
+<p>Start a rocketjob worker process:</p>
+
+<pre><code>bundle exec rocketjob
+</code></pre>
+
+<p>should look like the following: <br>
+<img src="http://i58.tinypic.com/otm63p.png" alt="The Ghost Logo"></p>
+
+<p>Lets create a user model using a scaffold for simplicity:</p>
+
+<pre><code>bin/rails generate scaffold User name:string age:integer
+bin/rake db:migrate
+</code></pre>
+
+<p>And now we can create the Rocketjob to create the users:</p>
+
+<pre><code>require 'CSV'
+
+class UserJob &lt; RocketJob::Job
+
+  def perform(path)
+    CSV.foreach(path, headers: true) do |row|
+      User.create(name: row['name'], age: row['age'])
+    end
+  end
+
+end
+</code></pre>
+
+<p>Before running the job, we need a CSV file containing some users to be created:</p>
+
+<pre><code>name, age
+Jhon doe1, 20
+Jhon doe2, 45
+Jhon doe3, 60
+Jhon doe4, 22
+Jhon doe5, 12
+</code></pre>
+
+<p>Now from the rails console, we can run the following:</p>
+
+<pre><code>UserJob.perform_later(path_to_file)
+</code></pre>
+
+<p>Rocketjob server's output:</p>
+
+<p><img src="http://i61.tinypic.com/2e0p9wp.png" alt="The Ghost Logo"></p>
+		</section>
+		<footer>
+			<section class="author">
+					<h2>by <a href="../author/juan/">juan gaviria</a></h2>
+			</section>
+			<section class="social">
+				<h2>Share</h2>
+				<p>Share on <a href="https://twitter.com/share?text=Creating%20a%20background%20task%20with%20Rocketjob&amp;url=http://localhost:2368/adding-rocketjob-to-a-rails-app/">Twitter</a>, <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/adding-rocketjob-to-a-rails-app/">facebook</a>.</p>
+			</section>
+		</footer>
+	</article>
+	<section id="readnext" class="Container-Tiny">
+		<header class="wrapper">
+			<h3>Suggested</h3>
+		</header>
+	</section>
+
+	</div>
+    <div id="site-footer">
+	<ul class="Container-Large">
+		<li class="copyright"><a href="http://localhost:2368">juan's ruby blog</a> © 2015</li>
+		<li class="ghost">Published proudly with <a href="https://ghost.org">Ghost</a></li>
+	</ul>
+</div>    
+</body>
