@@ -41,7 +41,7 @@
     </script>
 
     <meta name="generator" content="Ghost 0.7">
-    <link rel="alternate" type="application/rss+xml" title="juan's ruby blog" href="rss.2">
+    <link rel="alternate" type="application/rss+xml" title="juan's ruby blog" href="rss.3">
 </head>
 <body class="home-template">
 
@@ -51,7 +51,7 @@
                 <div class="site-title-wrapper">
                         <h1 class="site-title"><a class="js-ajax-link" title="juan's ruby blog" href="index.html">juan's ruby blog</a></h1>
 
-                        <a class="button-square" href="rss.2"><i class="fa fa-rss"></i></a>
+                        <a class="button-square" href="rss.3"><i class="fa fa-rss"></i></a>
                 </div>
 
                 <ul class="site-nav">
@@ -79,14 +79,9 @@
 
         <p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
 
-<h4 id="prerequirements">pre-requirements:</h4>
+<p>Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our sample users, it will just have two attributes (name and age). Lastly, we'll create the background task using Rocketjob to create our users from a CSV input file.</p>
 
-<ul>
-<li>Rocketjob gem installed. If you don't have Rocketjob yet, please go to <a href="http://rocketjob.io/configuration.html">http://rocketjob.io/configuration.html</a> - and follow the instructions.</li>
-<li>Rocketjob Mission Control (RJMC) gem. This is the UI for RocketJob. (optional)</li>
-</ul>
-
-<p>We will be creating a simple task to add users in batch from a csv file. In future blogs we'll create more complex tasks to fully illustrate the power of Rocketjob.</p>
+<h6 id="installingrocketjob">Installing rocketjob:</h6>
 
 <pre><code> rails new myapp
  cd myapp
@@ -119,7 +114,9 @@ gem 'rails_semantic_logger'
 <p>should look like the following: <br>
 <img src="http://i58.tinypic.com/otm63p.png" alt="The Ghost Logo"></p>
 
-<p>Lets create small user's app. I will use a scaffold for simplicity:</p>
+<h6 id="createusermodel">Create User model</h6>
+
+<p>Run the following scaffold for simplicity:</p>
 
 <pre><code>bin/rails generate scaffold User name:string age:integer
 bin/rake db:migrate
@@ -150,7 +147,7 @@ Jhon doe4, 22
 Jhon doe5, 12
 </code></pre>
 
-<p>Now from the rails console, we can run the following:</p>
+<p>Now from a rails console, we can run the following:</p>
 
 <pre><code>UserJob.perform_later(path_to_file)
 </code></pre>
@@ -159,9 +156,12 @@ Jhon doe5, 12
 
 <p><img src="http://i61.tinypic.com/2e0p9wp.png" alt="The Ghost Logo"></p>
 
-<h6 id="foreword">foreword:</h6>
+<h6 id="formoreinformation">For more information:</h6>
 
-<p>Rocketjob has some very powerfull features.</p>
+<ul>
+<li>Rocketjob <a href="http://rocketjob.io">http://rocketjob.io</a></li>
+<li>Rocketjob Mission Control (RJMC). <a href="http://rocketjob.io/mission_control">http://rocketjob.io/mission_control</a> This is the UI for RocketJob.</li>
+</ul>
     </div>
 
     <footer class="post-footer clearfix">
