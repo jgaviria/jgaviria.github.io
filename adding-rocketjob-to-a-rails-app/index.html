@@ -22,14 +22,14 @@
     <meta property="og:site_name" content="juan's ruby blog">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Creating a background task with Rocketjob">
-    <meta property="og:description" content="I've put together a little post to show you how to create a background task using Rocketjob. Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our sample users, it...">
+    <meta property="og:description" content="I've put together a little post to show you how to create a background task using Rocketjob. Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will...">
     <meta property="og:url" content="http://localhost:2368/adding-rocketjob-to-a-rails-app/">
     <meta property="article:published_time" content="2015-09-15T02:41:07.872Z">
-    <meta property="article:modified_time" content="2015-09-15T16:10:54.700Z">
+    <meta property="article:modified_time" content="2015-09-15T18:48:13.297Z">
     
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Creating a background task with Rocketjob">
-    <meta name="twitter:description" content="I've put together a little post to show you how to create a background task using Rocketjob. Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our sample users, it...">
+    <meta name="twitter:description" content="I've put together a little post to show you how to create a background task using Rocketjob. Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will...">
     <meta name="twitter:url" content="http://localhost:2368/adding-rocketjob-to-a-rails-app/">
     
     <script type="application/ld+json">
@@ -47,13 +47,13 @@
     "headline": "Creating a background task with Rocketjob",
     "url": "http://localhost:2368/adding-rocketjob-to-a-rails-app/",
     "datePublished": "2015-09-15T02:41:07.872Z",
-    "dateModified": "2015-09-15T16:10:54.700Z",
-    "description": "I&#x27;ve put together a little post to show you how to create a background task using Rocketjob. Firtst, we will create a rails app and add Rocketjob. Then, we&#x27;ll create a simple User model to hold our sample users, it..."
+    "dateModified": "2015-09-15T18:48:13.297Z",
+    "description": "I&#x27;ve put together a little post to show you how to create a background task using Rocketjob. Firtst, we will create a rails app and add Rocketjob. Then, we&#x27;ll create a simple User model to hold our users. Users will..."
 }
     </script>
 
     <meta name="generator" content="Ghost 0.7">
-    <link rel="alternate" type="application/rss+xml" title="juan's ruby blog" href="../rss.4">
+    <link rel="alternate" type="application/rss+xml" title="juan's ruby blog" href="../rss.5">
 </head>
 <body class="post-template">
 
@@ -63,7 +63,7 @@
                 <div class="site-title-wrapper">
                         <h1 class="site-title"><a class="js-ajax-link" title="juan's ruby blog" href="../">juan's ruby blog</a></h1>
 
-                        <a class="button-square" href="../rss.4"><i class="fa fa-rss"></i></a>
+                        <a class="button-square" href="../rss.5"><i class="fa fa-rss"></i></a>
                 </div>
 
                 <ul class="site-nav">
@@ -91,9 +91,9 @@
 
         <p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
 
-<p>Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our sample users, it will just have two attributes (name and age). Lastly, we'll create the background task using Rocketjob to create our users from a CSV input file.</p>
+<p>Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the background task which will get the input from a CSV file.</p>
 
-<h4 id="installingrocketjob">Installing rocketjob:</h4>
+<h3 id="installingrocketjob">Installing rocketjob:</h3>
 
 <pre><code> rails new myapp
  cd myapp
@@ -126,7 +126,7 @@ gem 'rails_semantic_logger'
 <p>should look like the following: <br>
 <img src="http://i58.tinypic.com/otm63p.png" alt="The Ghost Logo"></p>
 
-<h4 id="createusermodel">Create User model</h4>
+<h3 id="createusermodel">Create User model</h3>
 
 <p>Run the following scaffold for simplicity:</p>
 
@@ -168,7 +168,11 @@ Jhon doe5, 12
 
 <p><img src="http://i61.tinypic.com/2e0p9wp.png" alt="The Ghost Logo"></p>
 
-<h4 id="formoreinformation">For more information:</h4>
+<p>Mission Control is the Web user interface to manage rocketjob jobs. If you decide to use it, this is how the UserJob would look like after processing successfully:</p>
+
+<p><img src="http://i58.tinypic.com/t50fpe.png" alt="RJMC sample view"></p>
+
+<h3 id="formoreinformation">For more information:</h3>
 
 <ul>
 <li>Rocketjob <a href="http://rocketjob.io">http://rocketjob.io</a></li>

@@ -1,10 +1,10 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>juan's ruby blog</title><description>Thoughts, stories and ideas.</description><link>http://localhost:2368/</link><generator>Ghost 0.7</generator><lastBuildDate>Tue, 15 Sep 2015 16:10:58 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Creating a background task with Rocketjob</title><description>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>juan's ruby blog</title><description>Thoughts, stories and ideas.</description><link>http://localhost:2368/</link><generator>Ghost 0.7</generator><lastBuildDate>Tue, 15 Sep 2015 18:48:26 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Creating a background task with Rocketjob</title><description>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
 
-&lt;p&gt;Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our sample users, it will just have two attributes (name and age). Lastly, we'll&lt;/p&gt;</description><link>http://localhost:2368/adding-rocketjob-to-a-rails-app/</link><guid isPermaLink="false">2d2af3b0-4d8a-4bd5-9429-0e02b89b709d</guid><dc:creator>juan gaviria</dc:creator><pubDate>Tue, 15 Sep 2015 02:41:07 GMT</pubDate><content:encoded>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
+&lt;p&gt;Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the&lt;/p&gt;</description><link>http://localhost:2368/adding-rocketjob-to-a-rails-app/</link><guid isPermaLink="false">2d2af3b0-4d8a-4bd5-9429-0e02b89b709d</guid><dc:creator>juan gaviria</dc:creator><pubDate>Tue, 15 Sep 2015 02:41:07 GMT</pubDate><content:encoded>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
 
-&lt;p&gt;Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our sample users, it will just have two attributes (name and age). Lastly, we'll create the background task using Rocketjob to create our users from a CSV input file.&lt;/p&gt;
+&lt;p&gt;Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the background task which will get the input from a CSV file.&lt;/p&gt;
 
-&lt;h4 id="installingrocketjob"&gt;Installing rocketjob:&lt;/h4&gt;
+&lt;h3 id="installingrocketjob"&gt;Installing rocketjob:&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt; rails new myapp
  cd myapp
@@ -37,7 +37,7 @@ gem 'rails_semantic_logger'
 &lt;p&gt;should look like the following: &lt;br&gt;
 &lt;img src="http://i58.tinypic.com/otm63p.png" alt="The Ghost Logo"&gt;&lt;/p&gt;
 
-&lt;h4 id="createusermodel"&gt;Create User model&lt;/h4&gt;
+&lt;h3 id="createusermodel"&gt;Create User model&lt;/h3&gt;
 
 &lt;p&gt;Run the following scaffold for simplicity:&lt;/p&gt;
 
@@ -79,7 +79,11 @@ Jhon doe5, 12
 
 &lt;p&gt;&lt;img src="http://i61.tinypic.com/2e0p9wp.png" alt="The Ghost Logo"&gt;&lt;/p&gt;
 
-&lt;h4 id="formoreinformation"&gt;For more information:&lt;/h4&gt;
+&lt;p&gt;Mission Control is the Web user interface to manage rocketjob jobs. If you decide to use it, this is how the UserJob would look like after processing successfully:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i58.tinypic.com/t50fpe.png" alt="RJMC sample view"&gt;&lt;/p&gt;
+
+&lt;h3 id="formoreinformation"&gt;For more information:&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Rocketjob &lt;a href="http://rocketjob.io"&gt;http://rocketjob.io&lt;/a&gt;&lt;/li&gt;
