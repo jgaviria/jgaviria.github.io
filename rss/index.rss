@@ -1,4 +1,4 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>juan's ruby blog</title><description>Thoughts, stories and ideas.</description><link>http://localhost:2368/</link><generator>Ghost 0.7</generator><lastBuildDate>Tue, 15 Sep 2015 19:18:01 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Creating a background task with Rocketjob</title><description>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>Juan's ruby blog</title><description>Things about ROR and such</description><link>http://localhost:2368/</link><generator>Ghost 0.7</generator><lastBuildDate>Wed, 16 Sep 2015 00:53:35 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Creating a background task with Rocketjob</title><description>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
 
 &lt;p&gt;Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the&lt;/p&gt;</description><link>http://localhost:2368/adding-rocketjob-to-a-rails-app/</link><guid isPermaLink="false">2d2af3b0-4d8a-4bd5-9429-0e02b89b709d</guid><dc:creator>juan gaviria</dc:creator><pubDate>Tue, 15 Sep 2015 02:41:07 GMT</pubDate><content:encoded>&lt;p&gt;I've put together a little post to show you how to create a background task using Rocketjob.&lt;/p&gt;
 
@@ -63,11 +63,11 @@ end
 &lt;p&gt;Before running the job, we need a CSV file containing some users:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;name, age
-Jhon doe1, 20
-Jhon doe2, 45
-Jhon doe3, 60
-Jhon doe4, 22
-Jhon doe5, 12
+John Doe1, 20
+John Doe2, 45
+John Doe3, 60
+John Doe4, 22
+John Doe5, 12
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now from a rails console, we can run the following:&lt;/p&gt;
