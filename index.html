@@ -41,7 +41,7 @@
     </script>
 
     <meta name="generator" content="Ghost 0.7">
-    <link rel="alternate" type="application/rss+xml" title="Juan's ruby blog" href="rss.12">
+    <link rel="alternate" type="application/rss+xml" title="Juan's ruby blog" href="rss.13">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body class="home-template">
@@ -52,7 +52,7 @@
                 <div class="site-title-wrapper">
                         <h1 class="site-title"><a class="js-ajax-link" title="Juan's ruby blog" href="index.html">Juan's ruby blog</a></h1>
 
-                        <a class="button-square" href="rss.12"><i class="fa fa-rss"></i></a>
+                        <a class="button-square" href="rss.13"><i class="fa fa-rss"></i></a>
                 </div>
 
                 <ul class="site-nav">
@@ -80,7 +80,7 @@
 
         <p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
 
-<p>Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the background task which will get the input from a CSV file.</p>
+<p>First, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the background task which will get the input from a CSV file.</p>
 
 <h3 id="installingrocketjob">Installing rocketjob:</h3>
 
@@ -160,6 +160,8 @@ John Doe5, 12
 <p>Mission Control is the Web user interface to manage rocketjob jobs. If you decide to use it, this is how the UserJob would look like after processing successfully:</p>
 
 <p><img src="http://i58.tinypic.com/t50fpe.png" alt="RJMC sample view"></p>
+
+<p>In my next blog I will show how to add "Directory Monitoring". DirmonJob runs every 5 minutes by default, looking for new files that have appeared based on configured entries called DirmonEntry. These entries can be managed programmatically, or via rocketjob mission control, the web management interface for rocketjob.</p>
 
 <h3 id="formoreinformation">For more information:</h3>
 
