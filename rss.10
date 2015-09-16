@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Juan's ruby blog]]></title><description><![CDATA[Things about ROR and such]]></description><link>http://localhost:2368/</link><generator>Ghost 0.7</generator><lastBuildDate>Wed, 16 Sep 2015 00:53:35 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Creating a background task with Rocketjob]]></title><description><![CDATA[<p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
+
+<p>Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the</p>]]></description><link>http://localhost:2368/adding-rocketjob-to-a-rails-app/</link><guid isPermaLink="false">2d2af3b0-4d8a-4bd5-9429-0e02b89b709d</guid><dc:creator><![CDATA[juan gaviria]]></dc:creator><pubDate>Tue, 15 Sep 2015 02:41:07 GMT</pubDate><content:encoded><![CDATA[<p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
+
+<p>Firtst, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the background task which will get the input from a CSV file.</p>
+
+<h3 id="installingrocketjob">Installing rocketjob:</h3>
+
+<pre><code> rails new myapp
+ cd myapp
+</code></pre>
+
+<p>Add the following to the bottom of your gemfile:</p>
+
+<pre><code>gem 'rocketjob'
+gem 'bson_ext', platform: :ruby
+gem 'rails_semantic_logger'
+</code></pre>
+
+<p>Generate Mongo Configuration file:</p>
+
+<pre><code> bundle exec rails generate mongo_mapper:config
+</code></pre>
+
+<p>should generate <mark>config/mongo.yml</mark></p>
+
+<p>If you are running <mark>Spring</mark>, which is installed by default by Rails, stop the backgound spring processes to get them to reload:</p>
+
+<pre><code>bin/spring stop
+</code></pre>
+
+<p>Start a rocketjob worker process:</p>
+
+<pre><code>bundle exec rocketjob
+</code></pre>
+
+<p>should look like the following: <br>
+<img src="http://i58.tinypic.com/otm63p.png" alt="The Ghost Logo"></p>
+
+<h3 id="createusermodel">Create User model</h3>
+
+<p>Run the following scaffold for simplicity:</p>
+
+<pre><code>bin/rails generate scaffold User name:string age:integer
+bin/rake db:migrate
+</code></pre>
+
+<p>And now we can create the background task to create users from the CSV input file:</p>
+
+<pre><code>require 'CSV'
+
+class UserJob &lt; RocketJob::Job
+
+  def perform(path)
+    CSV.foreach(path, headers: true) do |row|
+      User.create(name: row['name'], age: row['age'])
+    end
+  end
+
+end
+</code></pre>
+
+<p>Before running the job, we need a CSV file containing some users:</p>
+
+<pre><code>name, age
+John Doe1, 20
+John Doe2, 45
+John Doe3, 60
+John Doe4, 22
+John Doe5, 12
+</code></pre>
+
+<p>Now from a rails console, we can run the following:</p>
+
+<pre><code>UserJob.perform_later(path_to_file)
+</code></pre>
+
+<p>Rocketjob server's output:</p>
+
+<p><img src="http://i61.tinypic.com/2e0p9wp.png" alt="The Ghost Logo"></p>
+
+<p>Mission Control is the Web user interface to manage rocketjob jobs. If you decide to use it, this is how the UserJob would look like after processing successfully:</p>
+
+<p><img src="http://i58.tinypic.com/t50fpe.png" alt="RJMC sample view"></p>
+
+<h3 id="formoreinformation">For more information:</h3>
+
+<ul>
+<li>Rocketjob Mission Control (RJMC). <a href="http://rocketjob.io/mission_control">http://rocketjob.io/mission_control</a> This is the UI for RocketJob.</li>
+<li>Rocketjob <a href="http://rocketjob.io">http://rocketjob.io</a></li>
+</ul>]]></content:encoded></item></channel></rss>
