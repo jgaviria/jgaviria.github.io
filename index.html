@@ -10,9 +10,9 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css?v=238e61d209">
-    <link rel="stylesheet" type="text/css" href="assets/css/nprogress.css?v=238e61d209">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css?v=238e61d209">
+    <link rel="stylesheet" type="text/css" href="assets/css/normalize.css?v=21ff32f96b">
+    <link rel="stylesheet" type="text/css" href="assets/css/nprogress.css?v=21ff32f96b">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css?v=21ff32f96b">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&amp;subset=latin,cyrillic-ext,latin-ext,cyrillic">
     <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
@@ -41,7 +41,7 @@
     </script>
 
     <meta name="generator" content="Ghost 0.7">
-    <link rel="alternate" type="application/rss+xml" title="Juan's ruby blog" href="rss.18">
+    <link rel="alternate" type="application/rss+xml" title="Juan's ruby blog" href="rss.20">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body class="home-template">
@@ -52,7 +52,7 @@
                 <div class="site-title-wrapper">
                         <h1 class="site-title"><a class="js-ajax-link" title="Juan's ruby blog" href="index.html">Juan's ruby blog</a></h1>
 
-                        <a class="button-square" href="rss.18"><i class="fa fa-rss"></i></a>
+                        <a class="button-square" href="rss.20"><i class="fa fa-rss"></i></a>
                 </div>
 
                 <ul class="site-nav">
@@ -123,18 +123,20 @@ gem 'rails_semantic_logger'
 bin/rake db:migrate
 </code></pre>
 
-<p>And now we can create the background task to create users from the CSV input file:</p>
+<p>And now we can create the background task to create users frm the CSV input file:</p>
 
-<pre><code>require 'CSV'
+<pre><code>require 'CSV'  
+
+# Create a property called `file_name` of type String
+
+key :file_name, String
 
 class UserJob &lt; RocketJob::Job
-
-  def perform(path)
-    CSV.foreach(path, headers: true) do |row|
+  def perform
+    CSV.foreach(file_name, headers: true) do |row|
       User.create(name: row['name'], age: row['age'])
     end
   end
-
 end
 </code></pre>
 
@@ -150,7 +152,7 @@ John Doe5, 12
 
 <p>Now from a rails console, we can run the following:</p>
 
-<pre><code>UserJob.perform_later(path_to_file)
+<pre><code>UserJob.create!(file_name:path_to_file)
 </code></pre>
 
 <p>Rocketjob server's output:</p>
@@ -221,7 +223,7 @@ John Doe5, 12
                 <a class="button-square button-jump-top js-jump-top" href="index.html#"><i class="fa fa-angle-up"></i></a>
             </div>
 
-            <p class="footer-copyright">© 2015 / Published with <a href="https://ghost.org">Ghost</a> / <a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></p>
+            <p class="footer-copyright">© 2016 / Published with <a href="https://ghost.org">Ghost</a> / <a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></p>
         </div>
     </footer>
 
@@ -229,13 +231,13 @@ John Doe5, 12
 
     <script type="text/javascript">  
     if (typeof jQuery == 'undefined') {
-        document.write('<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js?v=238e61d209"></'+'script>');
+        document.write('<script type="text/javascript" src="assets/js/jquery-1.11.3.min.js?v=21ff32f96b"></'+'script>');
     }
     </script>
 
-    <script type="text/javascript" src="assets/js/jquery.history.js?v=238e61d209"></script>
-    <script type="text/javascript" src="assets/js/nprogress.js?v=238e61d209"></script>
-    <script type="text/javascript" src="assets/js/jquery.fitvids.js?v=238e61d209"></script>
-    <script type="text/javascript" src="assets/js/scripts.js?v=238e61d209"></script>
+    <script type="text/javascript" src="assets/js/jquery.history.js?v=21ff32f96b"></script>
+    <script type="text/javascript" src="assets/js/nprogress.js?v=21ff32f96b"></script>
+    <script type="text/javascript" src="assets/js/jquery.fitvids.js?v=21ff32f96b"></script>
+    <script type="text/javascript" src="assets/js/scripts.js?v=21ff32f96b"></script>
 
 </body>
