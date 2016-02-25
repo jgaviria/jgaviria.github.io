@@ -41,7 +41,7 @@
     </script>
 
     <meta name="generator" content="Ghost 0.7">
-    <link rel="alternate" type="application/rss+xml" title="Juan's ruby blog" href="rss.20">
+    <link rel="alternate" type="application/rss+xml" title="Juan's ruby blog" href="rss.21">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body class="home-template">
@@ -52,7 +52,7 @@
                 <div class="site-title-wrapper">
                         <h1 class="site-title"><a class="js-ajax-link" title="Juan's ruby blog" href="index.html">Juan's ruby blog</a></h1>
 
-                        <a class="button-square" href="rss.20"><i class="fa fa-rss"></i></a>
+                        <a class="button-square" href="rss.21"><i class="fa fa-rss"></i></a>
                 </div>
 
                 <ul class="site-nav">
@@ -71,122 +71,52 @@
 <div id="latest-post" class="container">
 <article class="post-container post">
     <header class="post-header">
-        <h1 class="post-title">Creating a background task with Rocketjob</h1>
+        <h1 class="post-title">Installing Mission Control</h1>
 
-        <p class="post-date">Published <time datetime="Mon Sep 14 2015 22:41:07 GMT-0400 (EDT)">September 14th 2015</time> <strong>by <a href="author/juan/">juan gaviria</a></strong></p>
+        <p class="post-date">Published <time datetime="Wed Feb 24 2016 22:19:34 GMT-0500 (EST)">February 24th 2016</time> <strong>by <a href="author/juan/">juan gaviria</a></strong></p>
     </header>
 
     <div class="post-content clearfix">
 
-        <p>I've put together a little post to show you how to create a background task using Rocketjob.</p>
+        <p>This is a continuation on my last post <a href="http://jgaviria.github.io/index.html">creating a background task with Rocketjob</a></p>
 
-<p>First, we will create a rails app and add Rocketjob. Then, we'll create a simple User model to hold our users. Users will have two attributes (name and age). Lastly, we'll create the background task which will get the input from a CSV file.</p>
+<p>First, add the Rocket Job Mission Control gem to your Gemfile</p>
 
-<h3 id="installingrocketjob">Installing rocketjob</h3>
-
-<pre><code> rails new myapp
- cd myapp
+<pre><code>gem 'rocketjob_mission_control'
 </code></pre>
 
-<p>Add the following to the bottom of your gemfile:</p>
+<p>Install gems:</p>
 
-<pre><code>gem 'rocketjob'
-gem 'bson_ext', platform: :ruby
-gem 'rails_semantic_logger'
+<pre><code>bundle install
 </code></pre>
 
-<p>Generate Mongo Configuration file:</p>
+<p>Add the following line to config/routes.rb in your Rails application:</p>
 
-<pre><code> bundle exec rails generate mongo_mapper:config
+<pre><code>mount RocketJobMissionControl::Engine =&gt; 'rocketjob'
 </code></pre>
 
-<p>should generate <mark>config/mongo.yml</mark></p>
+<p>Start the Rails server:</p>
 
-<p>If you are running <mark>Spring</mark>, which is installed by default by Rails, stop the backgound spring processes to get them to reload:</p>
-
-<pre><code>bin/spring stop
+<pre><code>bin/rails s
 </code></pre>
 
-<p>Start a rocketjob worker process:</p>
-
-<pre><code>bundle exec rocketjob
-</code></pre>
-
-<p>should look like the following: <br>
-<img src="http://i58.tinypic.com/otm63p.png" alt="The Ghost Logo"></p>
-
-<h3 id="createusermodel">Create User model</h3>
-
-<p>Run the following scaffold for simplicity:</p>
-
-<pre><code>bin/rails generate scaffold User name:string age:integer
-bin/rake db:migrate
-</code></pre>
-
-<p>And now we can create the background task to create users frm the CSV input file:</p>
-
-<pre><code>require 'CSV'  
-
-# Create a property called `file_name` of type String
-
-key :file_name, String
-
-class UserJob &lt; RocketJob::Job
-  def perform
-    CSV.foreach(file_name, headers: true) do |row|
-      User.create(name: row['name'], age: row['age'])
-    end
-  end
-end
-</code></pre>
-
-<p>Before running the job, we need a CSV file containing some users:</p>
-
-<pre><code>name, age
-John Doe1, 20
-John Doe2, 45
-John Doe3, 60
-John Doe4, 22
-John Doe5, 12
-</code></pre>
-
-<p>Now from a rails console, we can run the following:</p>
-
-<pre><code>UserJob.create!(file_name:path_to_file)
-</code></pre>
-
-<p>Rocketjob server's output:</p>
-
-<p><img src="http://i61.tinypic.com/2e0p9wp.png" alt="The Ghost Logo"></p>
-
-<p>Mission Control is the Web user interface to manage rocketjob jobs. If you decide to use it, this is how the UserJob would look like after processing successfully:</p>
-
-<p><img src="http://i58.tinypic.com/t50fpe.png" alt="RJMC sample view"></p>
-
-<p>In my next blog I will show how to add "Directory Monitoring". DirmonJob runs every 5 minutes by default, looking for new files that have appeared based on configured entries called DirmonEntry. These entries can be managed programmatically, or via <a href="https://github.com/rocketjob/rocketjob_mission_control">rocketjob mission control</a>, the web management interface for <a href="https://rocketjob.io/">rocketjob</a>.</p>
-
-<h3 id="formoreinformation">For more information:</h3>
-
-<ul>
-<li>Rocketjob Mission Control (RJMC). <a href="http://rocketjob.io/mission_control">http://rocketjob.io/mission_control</a> This is the UI for RocketJob.</li>
-<li>Rocketjob <a href="http://rocketjob.io">http://rocketjob.io</a></li>
-</ul>
+<p>Open a browser and navigate to the local <a href="localhost:3000/rocketjob">Rocket Job Mission Control</a></p>
     </div>
 
     <footer class="post-footer clearfix">
 
         <div class="share">
-            <a class="icon-twitter" href="http://twitter.com/share?text=Creating%20a%20background%20task%20with%20Rocketjob&amp;url=http://localhost:2368/adding-rocketjob-to-a-rails-app/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <a class="icon-twitter" href="http://twitter.com/share?text=Installing%20Mission%20Control&amp;url=http://localhost:2368/installing-mission-control/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="fa fa-twitter"></i>
                 <span class="hidden">Twitter</span>
             </a>
 
-            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/adding-rocketjob-to-a-rails-app/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/installing-mission-control/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                 <i class="fa fa-facebook"></i>
                 <span class="hidden">Facebook</span>
             </a>
 
-            <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/adding-rocketjob-to-a-rails-app/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:2368/installing-mission-control/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                <i class="fa fa-google-plus"></i>
                 <span class="hidden">Google+</span>
             </a>
@@ -197,6 +127,14 @@ John Doe5, 12
 <div id="post-index" class="container">
     <ol class="post-list">
             <li class="post-stub post">
+        <a class="js-ajax-link" title="Installing Mission Control | Juan's ruby blog" href="installing-mission-control/">
+            <h4 class="post-stub-title">Installing Mission Control</h4>
+
+            <time class="post-stub-date" datetime="Wed Feb 24 2016 22:19:34 GMT-0500 (EST)">Published February 24th 2016</time>
+
+        </a>
+    </li>
+    <li class="post-stub post">
         <a class="js-ajax-link" title="Creating a background task with Rocketjob | Juan's ruby blog" href="adding-rocketjob-to-a-rails-app/">
             <h4 class="post-stub-title">Creating a background task with Rocketjob</h4>
 
